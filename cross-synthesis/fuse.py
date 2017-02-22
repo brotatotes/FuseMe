@@ -20,5 +20,9 @@ def fuse(modulator, carrier):
 	carrier_stft = librosa.core.stft(carrier)
 
 
-def get_spectral_envelope(signal, sr):
-
+def get_spectral_envelope(frame, sr):
+	fs = len(frame)
+	winframe = hamming(fs) * frame
+	frame_fft = fft(winframe, 4*fs)
+	log_fft = 20*np.log(np.abs(frame_fft)
+	real_cepstrum = np.real(ifft(log_fft))
