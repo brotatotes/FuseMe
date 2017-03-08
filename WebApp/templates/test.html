@@ -3,6 +3,7 @@
 	<title>FuseMe™</title>
 
 	<head> FuseMe </head>
+	<br></br>
 	<body>
 		explanation
 		explanation
@@ -14,20 +15,10 @@
 		explanation
 		explanation
 
-		<p> Upload your sonds here</p>
-		<button onclick="upload()">Upload</button>
-		<script>
-		function upload() {
-	    	var x = document.createElement("INPUT");
-	    	x.setAttribute("type", "file");
-	    	document.body.appendChild(x);
-		}
-		</script>
-
-		<p> Play your fusion </p>
-		<audio controls>
-		  <source src="/uploads/whitealbumyuki" type="audio/mp3">
-		Your browser does not support the audio element.
-		</audio>
+	<p> Upload your sonds here</p>
+    <form method=post enctype=multipart/form-data>
+      <p><input type=file name=file>
+         <input type=submit value=Upload>
+    </form>
 	</body>
 <html>
