@@ -9,6 +9,7 @@ app = Flask(__name__)
 def upload_file():
 	if request.method == 'POST':
 		f = request.files['file']
+		f.filename = 'uploaded.mp3'
 		f.save(os.path.join('static', secure_filename(f.filename)))
 	return render_template('test.html')
 	    
