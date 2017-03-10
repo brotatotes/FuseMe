@@ -18,5 +18,9 @@ def upload_file():
 def playback():
 	return render_template('playback.html')   
 
+@app.route("/about", methods=['GET','POST'])
+def about():
+	return render_template('about.html')
+
 if __name__ == "__main__":
     app.run()
