@@ -1,6 +1,6 @@
-import numpy as np, librosa, scipy as sp
+import os, librosa, numpy as np, scipy as sp
 from scipy.fftpack import fft, ifft
-from scipy.signal import hamming, boxcar
+from scipy.signal import hamming, boxcar, hilbert
 import matplotlib.pyplot as plt
 
 def fuse(modulator, carrier):
@@ -74,22 +74,39 @@ def cross_synthesize(mod, car):
     #
     # returns cross synthesis of the two signals
     # 
-    smaller_length = min(len(mod), len(car))
+    n_fft = 4096
+    hop_length = 1024 
     
+    smaller_length = min(len(mod), len(car))
+
     mod = mod[:smaller_length]
     car = car[:smaller_length]
-    
-    modstft = librosa.core.stft(mod, 2048, 1024)
-    carstft = librosa.core.stft(car, 2048, 1024)
+
+    modstft = librosa.core.stft(mod, n_fft, hop_length)
+    carstft = librosa.core.stft(car, n_fft, hop_length)
 
     car_env = hilbert(np.abs(carstft), axis=0)
     flat_car = carstft/(car_env+1e-20)
     mod_env = np.abs(hilbert(np.abs(modstft), axis=0))
     cross = flat_car * mod_env
-    result = librosa.core.istft(cross, 1024)
-    
+    result = librosa.core.istft(cross, hop_length)
+
     return result
 
+sr = 22500
+sounds_folder_path = 'C:\Users\junha\Documents\Github\FuseMe\sounds'
 
+sounds, all_fusions, fusions, speech = os.walk(sounds_folder_path)
+speechfiles = [(f, librosa.load('../sounds/speech/'+ f)) for f in speech[2] if '.wav' in f]
+carfiles = [(f, librosa.load('../sounds/' + f)) for f in sounds[2] if '.wav' in f]
 
+for mfile in speechfiles:
+	for cfile in carfiles:
+		mfile_name, (mod, mod_sr) = mfile
+		cfile_name, (car, car_sr) = cfile
 
+		assert mod_sr == car_sr, "MESSAGE FROM JUN: we have mismatched sample rates!\n{} and {}".format(cfile_name, mfile_name)
+
+		output_name = '../sounds/all_fusions/' + mfile_name[:-4]+ '_' + cfile_name
+		output_fuse = cross_synthesize(mod, car)
+		librosa.output.write_wav(output_name, output_fuse, sr=car_sr)
