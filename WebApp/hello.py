@@ -1,8 +1,9 @@
 from flask import Flask, request, redirect, url_for
 from flask import render_template
 from werkzeug import secure_filename
-import librosa
-import os
+import os, librosa, numpy as np, scipy as sp
+from scipy.fftpack import fft, ifft
+from scipy.signal import hamming, boxcar, hilbert
 
 app = Flask(__name__)
 
@@ -67,11 +68,14 @@ def file(id):
 
 @app.route("/playback", methods=['GET', 'POST'])
 def playback():
-	modulator, sr = librosa.load('modulator.wav', 44100)
-	carrier, sr = librosa.load('carrier.wav', 44100)
-	fusion = cross_synthesize(modulator, carrier)
-	wavwrite('fusion.wav', fusion, 44100, norm=True, dtype='int16')
-	return render_template('playback.html')   
+    if(os.path.isfile('./static/modulator.wav') == True and os.path.isfile('./static/carrier.wav') == True): 
+        modulator, sr = librosa.load('./static/modulator.wav', 22500)
+        carrier, sr = librosa.load('./static/carrier.wav', 22500)
+        fusion = cross_synthesize(modulator, carrier)
+        wavwrite((os.path.join('static', secure_filename('fusion.wav'))), fusion, 22500, norm=True, dtype='int16')
+        return render_template('playback.html')
+    else:
+        return render_template('upload_error.html')
 
 @app.route("/about", methods=['GET','POST'])
 def about():
