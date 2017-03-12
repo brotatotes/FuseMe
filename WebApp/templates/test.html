@@ -10,12 +10,18 @@
 		</p>
 
 	<p> Upload your song here</p>
-    <form method=post enctype=multipart/form-data>
+    <form action='/file/1' method=post enctype=multipart/form-data>
       <p><input type=file name=file>
          <input type=submit value=Upload>
     </form>
-    <br></br>
-    <button> Fuse </button>
+    <p> Upload your voice here </p>
+    <form action='/file/2' method=post enctype=multipart/form-data>
+      <p><input type=file name=file>
+         <input type=submit value=Upload>
+    </form>
+    <form action='/playback'>
+    	<input type="submit" value="Fuse"/>
+    </form>
 	</body>
 	<footer>A project by Austin Chambers, Junhao Li and Eric Hao</footer>
 <html>
