@@ -93,20 +93,21 @@ def cross_synthesize(mod, car):
 
     return result
 
-sr = 22500
-sounds_folder_path = 'C:\Users\junha\Documents\Github\FuseMe\sounds'
+def fuse_all():
+	sr = 22500
+	sounds_folder_path = 'C:\Users\junha\Documents\Github\FuseMe\sounds'
 
-sounds, all_fusions, fusions, speech = os.walk(sounds_folder_path)
-speechfiles = [(f, librosa.load('../sounds/speech/'+ f)) for f in speech[2] if '.wav' in f]
-carfiles = [(f, librosa.load('../sounds/' + f)) for f in sounds[2] if '.wav' in f]
+	sounds, all_fusions, fusions, speech = os.walk(sounds_folder_path)
+	speechfiles = [(f, librosa.load('../sounds/speech/'+ f)) for f in speech[2] if '.wav' in f]
+	carfiles = [(f, librosa.load('../sounds/' + f)) for f in sounds[2] if '.wav' in f]
 
-for mfile in speechfiles:
-	for cfile in carfiles:
-		mfile_name, (mod, mod_sr) = mfile
-		cfile_name, (car, car_sr) = cfile
+	for mfile in speechfiles:
+		for cfile in carfiles:
+			mfile_name, (mod, mod_sr) = mfile
+			cfile_name, (car, car_sr) = cfile
 
-		assert mod_sr == car_sr, "MESSAGE FROM JUN: we have mismatched sample rates!\n{} and {}".format(cfile_name, mfile_name)
+			assert mod_sr == car_sr, "MESSAGE FROM JUN: we have mismatched sample rates!\n{} and {}".format(cfile_name, mfile_name)
 
-		output_name = '../sounds/all_fusions/' + mfile_name[:-4]+ '_' + cfile_name
-		output_fuse = cross_synthesize(mod, car)
-		librosa.output.write_wav(output_name, output_fuse, sr=car_sr)
+			output_name = '../sounds/all_fusions/' + mfile_name[:-4]+ '_' + cfile_name
+			output_fuse = cross_synthesize(mod, car)
+			librosa.output.write_wav(output_name, output_fuse, sr=car_sr)
