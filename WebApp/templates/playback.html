@@ -1,23 +1,44 @@
 <!DOCTYPE html>
 <html>
-	<title>FuseMe™</title>
+	<head> 
+    <title>FuseMe™</title>
+    <link rel="stylesheet" type="text/css" href="../static/playback.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+	</head> 
+	<body>  
+  	<div id="title-block"><h1>FuseMe</h1></div>
 
-	<head> FuseMe </head>
-	<br></br>
-	<body>
-		Your Song
-		<br></br>
-		<audio controls="controls" src="/static/modulator.wav">
-		</audio>
-		<br></br>
-		Your Voice
-		<br></br>
-		<audio controls="controls" src="/static/carrier.wav">
-		</audio>
-		<br></br>
-		Your Fusion
-		<br></br>
-		<audio controls="controls" src="/static/fusion.wav">
-		</audio>		
-	</body>
+    <div id="playback">
+    	<header>Fuse Results</header>
+    	<table>
+    		<tr>
+    			<td class="labels">
+    				<p>Your Song</p>
+    			</td>
+    			<td class="audios">
+						<audio controls="controls" src="/static/modulator.wav"></audio>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td class="labels">
+    				<p>Your Voice</p>
+    			</td>
+    			<td class="audios">
+    				<audio controls="controls" src="/static/carrier.wav"></audio>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td class="labels">
+    				<p>Your Fusion</p>
+    			</td>
+    			<td class="audios">
+    				<audio controls="controls" src="/static/fusion.wav"></audio>
+    			</td>
+    		</tr>
+    	</table>
+			<a id="back" href="/">Fuse again</a>
+	  </div>
+
+    <footer><p>A project by Austin Chambers, Junhao Li and Eric Hao</p></footer>
+  </body>
 <html>
