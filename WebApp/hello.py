@@ -1,7 +1,7 @@
 from flask import Flask, request, redirect, url_for
 from flask import render_template
 from werkzeug import secure_filename
-import os, librosa, numpy as np, scipy as sp
+import os, sys, librosa, numpy as np, scipy as sp
 from scipy.fftpack import fft, ifft
 from scipy.signal import hamming, boxcar, hilbert
 
@@ -42,6 +42,13 @@ def cross_synthesize(mod, car):
 
 @app.route("/", methods=['GET', 'POST'])
 def upload_file():
+    # try:
+    #     os.remove('./static/modulator.wav')
+    #     os.remove('./static/carrier.wav')
+    #     os.remove('./static/fusion.wav')
+    # except:
+    #     print 'File to delete not found.'
+
 	if request.method == 'POST':
 		f = request.files['file']
 		f.filename = 'uploaded.mp3'
@@ -49,6 +56,7 @@ def upload_file():
 		return '', 204
 	else:
 		return render_template('test.html')
+
 
 @app.route("/file/<id>", methods=["POST"])
 def file(id):
@@ -76,6 +84,14 @@ def playback():
         return render_template('playback.html')
     else:
         return render_template('upload_error.html')
+
+@app.route("/reset", methods=['GET','POST'])
+def reset():
+    if request.method == "POST":
+        os.remove('./static/modulator.wav')
+        os.remove('./static/carrier.wav')
+        os.remove('./static/fusion.wav')
+    return render_template('test.html')
 
 @app.route("/about", methods=['GET','POST'])
 def about():
