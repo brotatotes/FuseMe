@@ -3,21 +3,36 @@ from scipy.fftpack import fft, ifft
 from scipy.signal import hamming, boxcar, hilbert
 import matplotlib.pyplot as plt
 
-def fuse(modulator, carrier):
+def fuse(mfile, cfile, outfile = ''):
 	"""
 	Takes in modulator and carrier signals and returns a fused signal. 
 	Typically, a modulator is a voice, and the carrier is any spectrally rich sound.
 
 	- input - 
-	modulator: np array
-	carrier: np array
+	modulator: string
+	carrier: string
 
 	- output -
 	fusion: np array
 
 	"""
-	modulator_stft = librosa.core.stft(modulator)
-	carrier_stft = librosa.core.stft(carrier)
+	m, m_sr = librosa.load(mfile)
+	c, c_sr = librosa.load(cfile)
+	m, m_i = librosa.effects.trim(m)
+	c, c_i = librosa.effects.trim(c)
+
+	while len(c) < len(m):
+		c = np.concatenate((c,c))
+
+	if len(c) > len(m):
+		c = c[:len(m)]
+
+	fusion = cross_synthesize(m,c)
+	if outfile != '':
+		librosa.output.write_wav(outfile, fusion, c_sr) #why c_sr as opposed to m_sr??
+
+	return fusion
+
 
 
 def get_spectral_envelope(frame):
