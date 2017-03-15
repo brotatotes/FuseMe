@@ -70,9 +70,15 @@ def playback():
 def reset():
     if request.method == "POST":
         username = request.cookies.get('username')
-        os.remove('./static/audio/modulator_' + username + '.wav')
-        os.remove('./static/audio/carrier_' + username + '.wav')
-        os.remove('./static/audio/fusion_' + username + '.wav')
+        mfile = './static/audio/modulator_' + username + '.wav'
+        cfile = './static/audio/carrier_' + username + '.wav'
+        ffile = './static/audio/fusion_' + username + '.wav'
+        if os.path.exists(mfile):   
+            os.remove('./static/audio/modulator_' + username + '.wav')
+        if os.path.exists(cfile):
+            os.remove('./static/audio/carrier_' + username + '.wav')
+        if os.path.exists(ffile):
+            os.remove('./static/audio/fusion_' + username + '.wav')
     return render_template('test.html')
 
 @app.route("/about", methods=['GET','POST'])
