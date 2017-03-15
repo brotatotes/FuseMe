@@ -4,7 +4,7 @@ FuseMe™ takes a snippet of music and fuses it with your voice using cross synt
 # Running Flask App Instructions
 1. In your terminal in the WebApp folder run:
 ~~~~
-python hello.py
+python FuseMe.py
 ~~~~
 
 2. open chrome to port http://127.0.0.1:5000/
