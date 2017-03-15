@@ -44,7 +44,7 @@ def file(id):
 		if id == '1':
 			f = request.files['file']
 			f.filename = 'carrier_' + username + '.wav'
-            print os.getcwd()
+			print os.getcwd()
 			f.save(os.path.join('static/audio', secure_filename(f.filename)))
 			return '', 204
 		else:
