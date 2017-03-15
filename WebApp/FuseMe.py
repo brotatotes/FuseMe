@@ -20,9 +20,9 @@ def wavwrite(filepath, data, sr, norm=True, dtype='int16',):
 @app.route("/", methods=['GET', 'POST'])
 def upload_file():
     # try:
-    #     os.remove('./static/modulator.wav')
-    #     os.remove('./static/carrier.wav')
-    #     os.remove('./static/fusion.wav')
+    #     os.remove('./static/audio/modulator.wav')
+    #     os.remove('./static/audio/carrier.wav')
+    #     os.remove('./static/audio/fusion.wav')
     # except:
     #     print 'File to delete not found.'
 
@@ -30,7 +30,7 @@ def upload_file():
     if request.method == 'POST':
 		f = request.files['file']
 		f.filename = 'uploaded.mp3'
-		f.save(os.path.join('static', secure_filename(f.filename)))
+		f.save(os.path.join('static/audio', secure_filename(f.filename)))
 		return '', 204
     else:
         resp.set_cookie('username', str(int(1000000000*random.random())))
@@ -44,12 +44,12 @@ def file(id):
 		if id == '1':
 			f = request.files['file']
 			f.filename = 'carrier_' + username + '.wav'
-			f.save(os.path.join('static', secure_filename(f.filename)))
+			f.save(os.path.join('static/audio', secure_filename(f.filename)))
 			return '', 204
 		else:
 			f = request.files['file']
 			f.filename = 'modulator_' + username + '.wav'
-			f.save(os.path.join('static', secure_filename(f.filename)))
+			f.save(os.path.join('static/audio', secure_filename(f.filename)))
 			return '', 204
 	else:
 		return render_template('test.html')
@@ -57,11 +57,11 @@ def file(id):
 @app.route("/playback", methods=['GET', 'POST'])
 def playback():
     username = request.cookies.get('username')
-    if(os.path.isfile('./static/modulator_' + username + '.wav') == True and os.path.isfile('./static/carrier_' + username + '.wav') == True): 
-        modulator, sr = librosa.load('./static/modulator_' + username + '.wav', 22500)
-        carrier, sr = librosa.load('./static/carrier_' + username + '.wav', 22500)
+    if(os.path.isfile('./static/audio/modulator_' + username + '.wav') == True and os.path.isfile('./static/audio/carrier_' + username + '.wav') == True): 
+        modulator, sr = librosa.load('./static/audio/modulator_' + username + '.wav', 22500)
+        carrier, sr = librosa.load('./static/audio/carrier_' + username + '.wav', 22500)
         fusion = fuse(modulator, carrier)
-        wavwrite((os.path.join('static', secure_filename('fusion_' + username + '.wav'))), fusion, 22500, norm=True, dtype='int16')
+        wavwrite((os.path.join('static/audio', secure_filename('fusion_' + username + '.wav'))), fusion, 22500, norm=True, dtype='int16')
         return render_template('playback.html')
     else:
         return render_template('upload_error.html')
@@ -70,9 +70,9 @@ def playback():
 def reset():
     if request.method == "POST":
         username = request.cookies.get('username')
-        os.remove('./static/modulator_' + username + '.wav')
-        os.remove('./static/carrier_' + username + '.wav')
-        os.remove('./static/fusion_' + username + '.wav')
+        os.remove('./static/audio/modulator_' + username + '.wav')
+        os.remove('./static/audio/carrier_' + username + '.wav')
+        os.remove('./static/audio/fusion_' + username + '.wav')
     return render_template('test.html')
 
 @app.route("/about", methods=['GET','POST'])
