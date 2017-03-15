@@ -2,5 +2,10 @@
 # $ conda create --name <env> --file <this file>
 # platform: osx-64
 nomkl=1.0=0
-numpy=1.12.0=py27_0
-scipy=0.19.0=np112py27_0
+flask=0.12=py27_0
+matplotlib=2.0.0=np112py27_0
+numpy=1.12.0=py27_nomkl_0
+openssl=1.0.2k=1
+pip=9.0.1=py27_1
+scipy=0.19.0=np112py27_nomkl_0
+setuptools=27.2.0=py27_0
