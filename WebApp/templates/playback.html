@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
 	</head> 
 	<body>  
+
   	<div id="title-block"><h1>FuseMe</h1></div>
 
     <div id="playback">
@@ -16,7 +17,7 @@
     				<p>Your Song</p>
     			</td>
     			<td class="audios">
-						<audio controls="controls" src="/static/carrier.wav"></audio>
+						<audio controls="controls" src="/static/carrier_{{request.cookies.get('username')}}.wav"></audio>
     			</td>
     		</tr>
     		<tr>
@@ -24,7 +25,7 @@
     				<p>Your Voice</p>
     			</td>
     			<td class="audios">
-    				<audio controls="controls" src="/static/modulator.wav"></audio>
+    				<audio controls="controls" src="/static/modulator_{{request.cookies.get('username')}}.wav"></audio>
     			</td>
     		</tr>
     		<tr>
@@ -32,7 +33,7 @@
     				<p>Your Fusion</p>
     			</td>
     			<td class="audios">
-    				<audio controls="controls" src="/static/fusion.wav"></audio>
+    				<audio controls="controls" src="/static/fusion_{{request.cookies.get('username')}}.wav"></audio>
     			</td>
     		</tr>
     	</table>

@@ -1,11 +1,14 @@
-from flask import Flask, request, redirect, url_for
+from flask import Flask, request, redirect, url_for, make_response
 from flask import render_template
 from werkzeug import secure_filename
 import os, sys, librosa, numpy as np, scipy as sp
 from scipy.fftpack import fft, ifft
 from scipy.signal import hamming, boxcar, hilbert
+import random
+from fuse import *
 
 app = Flask(__name__)
+ALLOWED_EXTENSIONS = set(['wav'])
 
 def wavwrite(filepath, data, sr, norm=True, dtype='int16',):
     if norm:
@@ -13,32 +16,6 @@ def wavwrite(filepath, data, sr, norm=True, dtype='int16',):
     data = data * np.iinfo(dtype).max
     data = data.astype(dtype)
     sp.io.wavfile.write(filepath, sr, data)
-
-def cross_synthesize(mod, car):
-    # takes two 1D np arrays
-    # mod - the modulator signal
-    # car - the carrier signal
-    #
-    # returns cross synthesis of the two signals
-    # 
-    n_fft = 4096
-    hop_length = 1024 
-    
-    smaller_length = min(len(mod), len(car))
-
-    mod = mod[:smaller_length]
-    car = car[:smaller_length]
-
-    modstft = librosa.core.stft(mod, n_fft, hop_length)
-    carstft = librosa.core.stft(car, n_fft, hop_length)
-
-    car_env = hilbert(np.abs(carstft), axis=0)
-    flat_car = carstft/(car_env+1e-20)
-    mod_env = np.abs(hilbert(np.abs(modstft), axis=0))
-    cross = flat_car * mod_env
-    result = librosa.core.istft(cross, hop_length)
-
-    return result
 
 @app.route("/", methods=['GET', 'POST'])
 def upload_file():
@@ -49,26 +26,29 @@ def upload_file():
     # except:
     #     print 'File to delete not found.'
 
-	if request.method == 'POST':
+    resp = make_response(render_template('test.html'))
+    if request.method == 'POST':
 		f = request.files['file']
 		f.filename = 'uploaded.mp3'
 		f.save(os.path.join('static', secure_filename(f.filename)))
 		return '', 204
-	else:
-		return render_template('test.html')
+    else:
+        resp.set_cookie('username', str(int(1000000000*random.random())))
+        return resp
 
 
 @app.route("/file/<id>", methods=["POST"])
 def file(id):
 	if request.method == "POST":
+		username = request.cookies.get('username')
 		if id == '1':
 			f = request.files['file']
-			f.filename = 'carrier.wav'
+			f.filename = 'carrier_' + username + '.wav'
 			f.save(os.path.join('static', secure_filename(f.filename)))
 			return '', 204
 		else:
 			f = request.files['file']
-			f.filename = 'modulator.wav'
+			f.filename = 'modulator_' + username + '.wav'
 			f.save(os.path.join('static', secure_filename(f.filename)))
 			return '', 204
 	else:
@@ -76,11 +56,12 @@ def file(id):
 
 @app.route("/playback", methods=['GET', 'POST'])
 def playback():
-    if(os.path.isfile('./static/modulator.wav') == True and os.path.isfile('./static/carrier.wav') == True): 
-        modulator, sr = librosa.load('./static/modulator.wav', 22500)
-        carrier, sr = librosa.load('./static/carrier.wav', 22500)
-        fusion = cross_synthesize(modulator, carrier)
-        wavwrite((os.path.join('static', secure_filename('fusion.wav'))), fusion, 22500, norm=True, dtype='int16')
+    username = request.cookies.get('username')
+    if(os.path.isfile('./static/modulator_' + username + '.wav') == True and os.path.isfile('./static/carrier_' + username + '.wav') == True): 
+        modulator, sr = librosa.load('./static/modulator_' + username + '.wav', 22500)
+        carrier, sr = librosa.load('./static/carrier_' + username + '.wav', 22500)
+        fusion = fuse(modulator, carrier)
+        wavwrite((os.path.join('static', secure_filename('fusion_' + username + '.wav'))), fusion, 22500, norm=True, dtype='int16')
         return render_template('playback.html')
     else:
         return render_template('upload_error.html')
@@ -88,9 +69,10 @@ def playback():
 @app.route("/reset", methods=['GET','POST'])
 def reset():
     if request.method == "POST":
-        os.remove('./static/modulator.wav')
-        os.remove('./static/carrier.wav')
-        os.remove('./static/fusion.wav')
+        username = request.cookies.get('username')
+        os.remove('./static/modulator_' + username + '.wav')
+        os.remove('./static/carrier_' + username + '.wav')
+        os.remove('./static/fusion_' + username + '.wav')
     return render_template('test.html')
 
 @app.route("/about", methods=['GET','POST'])
