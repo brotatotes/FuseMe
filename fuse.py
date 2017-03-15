@@ -1,7 +1,7 @@
 import os, librosa, numpy as np, scipy as sp
 from scipy.fftpack import fft, ifft
 from scipy.signal import hamming, boxcar, hilbert
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 def fuse(m, c, outfile = ''):
 	"""
