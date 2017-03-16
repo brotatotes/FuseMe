@@ -26,7 +26,7 @@ def upload_file():
     # except:
     #     print 'File to delete not found.'
 
-    resp = make_response(render_template('test.html'))
+    resp = make_response(render_template('home.html'))
     if request.method == 'POST':
 		f = request.files['file']
 		f.filename = 'uploaded.mp3'
@@ -52,12 +52,12 @@ def file(id):
 			f.save(os.path.join('static/audio', secure_filename(f.filename)))
 			return '', 204
 	else:
-		return render_template('test.html')
+		return render_template('home.html')
 
 @app.route("/playback", methods=['GET', 'POST'])
 def playback():
     username = request.cookies.get('username')
-    if(os.path.isfile('./static/audio/modulator_' + username + '.wav') == True and os.path.isfile('./static/audio/carrier_' + username + '.wav') == True): 
+    if(os.path.isfile('./static/audio/modulator_' + username + '.wav') == True and os.path.isfile('./static/audio/carrier_' + username + '.wav') == True):
         modulator, sr = librosa.load('./static/audio/modulator_' + username + '.wav', 22500)
         carrier, sr = librosa.load('./static/audio/carrier_' + username + '.wav', 22500)
         fusion = fuse(modulator, carrier)
@@ -73,13 +73,13 @@ def reset():
         mfile = './static/audio/modulator_' + username + '.wav'
         cfile = './static/audio/carrier_' + username + '.wav'
         ffile = './static/audio/fusion_' + username + '.wav'
-        if os.path.exists(mfile):   
+        if os.path.exists(mfile):
             os.remove('./static/audio/modulator_' + username + '.wav')
         if os.path.exists(cfile):
             os.remove('./static/audio/carrier_' + username + '.wav')
         if os.path.exists(ffile):
             os.remove('./static/audio/fusion_' + username + '.wav')
-    return render_template('test.html')
+    return render_template('home.html')
 
 @app.route("/about", methods=['GET','POST'])
 def about():
