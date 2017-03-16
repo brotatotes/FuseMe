@@ -17,7 +17,7 @@ h1, header {
 	font-family: 'Robot', sans-serif;
 }
 
-p, a {
+p, a, .quadrant {
 	font-family: 'Open Sans', sans-serif;
 	margin: 0;
 }
@@ -41,29 +41,55 @@ h1 {
 
 article {
 	position: relative;
-	height: 75%;
-	margin: 0% 25%;
+	min-height: 75%;
+	margin: 0% 15%;
+	overflow: hidden;
 }
 
 header {
 	padding-top: 2rem; 
-	font-size: 3rem;
+	font-size: 2.5rem;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+article p {
+	padding: 0rem;
+	padding-top: 0.4rem;
+	font-size: 1rem;
+}
+
+.quadrant {
+	display: inline-block;
+	padding: 1rem 0rem;
+	width: 49%;
+	text-align: center;
+}
+
+.quadrant > * {
+	vertical-align: top;
+}
+
+.quadrant span {
+	margin-right: 0.6rem;
 	font-weight: bold;
 }
 
-#about-us {
-	padding: 0rem;
-	padding-top: 1rem;
-	font-size: 1.6rem;
+.quadrant .shorter {
+	width: 20rem;
+}
+
+.quadrant .longer {
+	width: 23rem;
 }
 
 #back {
-	position: absolute;
-	right: 0;
-	bottom: 10%;
+	float: right;
+	margin-top: 4rem;
+	margin-bottom: 2rem;
+	padding: 0.1rem 0.7rem;
 	border: 0.2rem solid #3D315B;
 	border-radius: 1.2rem;
-	padding: 0.1rem 0.7rem;
 	background-color: rgba(61, 49, 91, 0.4);
 	font-size: 1.2rem;
 	color: inherit;
