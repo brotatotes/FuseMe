@@ -1,5 +1,5 @@
-var song_chosen = false;
 var voice_chosen = false;
+var song_chosen = false;
 
 $('#song-upload').bind('change', function() { 
 	song_chosen = true;
@@ -10,11 +10,6 @@ $('#song-upload').bind('change', function() {
 		fileName = fileName.substring(slash_idx + 1);
 	}
 	$('#song-selected').html(fileName);
-	var status = $(this).siblings('.submit-status');
-	status.addClass('complete');
-	status.html('File submitted &#10004;');
-	console.log(song_chosen);
-	$('#submit1').trigger('click');
 })
 
 $('#voice-upload').bind('change', function() { 
@@ -26,9 +21,21 @@ $('#voice-upload').bind('change', function() {
 		fileName = fileName.substring(slash_idx + 1);
 	}
 	$('#voice-selected').html(fileName);
-	var status = $(this).siblings('.submit-status');
-	status.addClass('complete');
-	status.html('File submitted &#10004;');
-	console.log(song_chosen);
-	$('#submit2').trigger('click');
+})
+
+$('#submit1').click(function(){
+	console.log(song_chosen)
+	if(song_chosen) {
+		var status = $(this).siblings('.submit-status');
+		status.addClass('complete');
+		status.html('A file has been submitted &#10004;');
+	}
+})
+
+$('#submit2').click(function(){
+	if(voice_chosen) {
+		var status = $(this).siblings('.submit-status');
+		status.addClass('complete');
+		status.html('A file has been submitted &#10004;');
+	}
 })
