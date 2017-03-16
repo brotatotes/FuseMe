@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head> 
+  <head>
     <title>FuseMe</title>
     <link rel="stylesheet" type="text/css" href="../static/test.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
-  </head> 
-  <body>  
-    <div id="title-block"><h1>FuseMe</h1></div>
-    
+  </head>
+  <body>
+    <div id="title-block"><h1><a href="https://github.com/brotatotes/FuseMe" style="text-decoration:none">FuseMe</a></h1></div>
+
     <article>
       <p id="introduction">
-        FuseMe takes a sound effect and fuses it with your voice using cross synthesis. Upload a song and yourself saying something and try it out! To learn more about cross-synthesis and us click 
-        <a href="/about"><b>here</b></a>
+        FuseMe is an audio processing webapp that uses cross synthesis to fuse a sound effect with your voice. Try it out by uploading .wav files! To learn more about how we built it, click
+        <a href="/about"><b>here</b></a>.
       </p>
     </article>
 
     <main>
-      <h2> Upload your song here</h2>
+      <h2> Upload a sound effect here (.wav)</h2>
       <div class="break"></div>
       <form id="f1" action='/file/1' method=post enctype=multipart/form-data>
         <label for="song-upload">Choose File</label>
@@ -25,8 +25,8 @@
         <input id='submit1' class="file-submit" type=submit value=Upload>
         <p class="submit-status">No file uploaded &#10006;</p>
       </form>
-      
-      <h2> Upload your voice here </h2>
+
+      <h2> Upload a vocal recording here (.wav)</h2>
       <div class="break"></div>
       <form id="f2" action='/file/2' method=post enctype=multipart/form-data>
           <label for="voice-upload">Choose file</label>
@@ -35,16 +35,18 @@
           <input id="submit2" class="file-submit" type=submit value=Upload>
           <p class="submit-status">No file uploaded &#10006;</p>
       </form>
-      
+
       <form id="fuse" action='/playback'>
         <p><input type="submit" value="Fuse"/></p>
       </form>
     </main>
 
-    <footer>      
-      <p><b>A project by Austin Chambers, Junhao Li and Eric Hao</b><br>
-         <a href="mailto:EricHao2018@u.northwestern.edu"><b>EricHao2018@u.northwestern.edu</b></a><br>
-         EECS 352: Machine Perception of Music, Winter 2017, Northwestern University - instructed by Dr. Bryan Pardo</p>
+    <footer>
+      <p>A Northwestern University project by Austin Chambers, Eric Hao, and Junhao Li<br>
+          Winter 2017 - EECS 352: Machine Perception of Music - instructed by Dr. Bryan Pardo<br>
+         <a href="mailto:EricHao2018@u.northwestern.edu" style="text-decoration:underline"><b>Contact us: erichao2018@u.northwestern.edu</b></a>
+       </p>
+
     </footer>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="../static/test.js">  </script>
