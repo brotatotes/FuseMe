@@ -2,7 +2,7 @@
 <html>
 	<head> 
     <title>FuseMe</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='test.css') }}">
+    <link rel="stylesheet" type="text/css" href="../static/test.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
 	</head> 
 	<body>  
@@ -18,7 +18,7 @@
     <main>
   	  <h2> Upload your song here</h2>
       <div class="break"></div>
-      <form action='/file/1' method=post enctype=multipart/form-data>
+      <form id="form1" action='/file/1' method=post enctype=multipart/form-data>
         <label for="song-upload">Choose File</label>
         <span id="song-selected" class="selected-text">No file chosen...</span>
         <input id="song-upload" type=file name=file>
@@ -28,7 +28,7 @@
       
       <h2> Upload your voice here </h2>
       <div class="break"></div>
-      <form action='/file/2' method=post enctype=multipart/form-data>
+      <form id="form2" action='/file/2' method=post enctype=multipart/form-data>
           <label for="voice-upload">Choose file</label>
           <span id="voice-selected" class="selected-text">No file chosen...</span>
           <input id="voice-upload" type=file name=file>
@@ -37,11 +37,17 @@
       </form>
       
       <form id="fuse" action='/playback'>
-      	<p><input type="submit" value="Fuse"/></p>
+      	<p><input id="fuse-submit" type="submit" value="Fuse"/></p>
       </form>
 	  </main>
 
-    <footer><p>A project by Austin Chambers, Junhao Li and Eric Hao</p></footer>
+    <footer>
+      <p><b>A project by Austin Chambers, Junhao Li and Eric Hao
+      </b><a href="mailto:EricHao2018@u.northwestern.edu"><b><br>
+      EricHao2018@u.northwestern.edu</b> </a>
+      <br>
+      EECS 352: Machine Perception of Music, Winter 2017, Northwestern University - instructed by Dr. Bryan Pardo</p>
+    </footer>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="../static/test.js">  </script>
   </body>
