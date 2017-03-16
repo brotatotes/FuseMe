@@ -14,7 +14,7 @@ $('#song-upload').bind('change', function() {
 	status.addClass('complete');
 	status.html('File submitted &#10004;');
 	console.log(song_chosen);
-	$('#form1').submit();
+	$('#submit1').trigger('click');
 })
 
 $('#voice-upload').bind('change', function() { 
@@ -30,5 +30,5 @@ $('#voice-upload').bind('change', function() {
 	status.addClass('complete');
 	status.html('File submitted &#10004;');
 	console.log(song_chosen);
-	$('#form2').submit();
+	$('#submit2').trigger('click');
 })
