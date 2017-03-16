@@ -14,6 +14,7 @@ $('#song-upload').bind('change', function() {
 	status.addClass('complete');
 	status.html('File submitted &#10004;');
 	console.log(song_chosen);
+	$('#form1').submit();
 })
 
 $('#voice-upload').bind('change', function() { 
@@ -29,15 +30,5 @@ $('#voice-upload').bind('change', function() {
 	status.addClass('complete');
 	status.html('File submitted &#10004;');
 	console.log(song_chosen);
-})
-
-$('#fuse-submit').click(function(event) {
-	if(song_chosen) {
-		$('#form1').submit();
-		console.log(1);
-	}
-	if(voice_chosen) {
-		$('#form2').submit();
-		console.log(2);
-	}
+	$('#form2').submit();
 })
