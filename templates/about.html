@@ -10,26 +10,32 @@
     <div id="title-block"><h1>FuseMe</h1></div>
 
     <article>
-    	<header>What is FuseMe</header>
+			<br>
+			<br>
+    	<h2>What is FuseMe?</h2>
 			<p id="about">
         Have you ever wondered what you would sound like if you were a synth or a robot? FuseMe can help you answer that question by fusing your speech with different sounds. The result will sound as if the noise (e.g. a synth) was saying what you are saying. Manipulating your voice can be very entertaining and lead to some odd, cool, or funny audio files (think SnapChat filters making people sound like bees or talking after inhaling helium). Our platform aims to make it simple to mess around with and fuse your voice with whatever sounds you like. We hope that you can get a good laugh or make some cool sound effects with our app to share with your friends.
       </p>
-      <header>How FuseMe works</header>
+			<br>
+      <h2>How does FuseMe work?</h2>
       <p id="how-it-works">
         FuseMe attempts to fuse the “song” file and the “voice” file through a method called cross-synthesis. FuseMe starts by taking the short-term Fourier transforms of both audio files which gives us the distributions of frequencies that make up the audio at different points in time for both files. Next, FuseMe takes these frequency distributions and computes an envelope for  each distribution that captures the shape of each distribution. The frequency distributions of the voice file are divided by their envelopes, flattening them, and are then multiplied by the corresponding envelopes of the song file distributions that occur at the same point in time. Thus, the frequencies throughout the voice file are morphed to have a similar distribution as the frequencies throughout the song file. The result sounds like a sound effect saying what the speech says.
       </p>
+			<br>
       <div class="quadrant"><span>1.</span><img class="shorter" src="../static/images/1.png"></div>
       <div class="quadrant"><span>2.</span><img class="longer" src="../static/images/2.png"></div>
       <div class="quadrant"><span>3.</span><img class="shorter" src="../static/images/3.png"></div>
       <div class="quadrant"><span>4.</span><img class="longer" src="../static/images/4.png"></div>
-      <header>Gauging Performance</header>
+      <h2>Gauging Performance</h2>
       <p id="defining-success">
         Have you ever wondered what you would sound like if you were a synth or a robot? FuseMe is an app where people can answer that question by fusing their talking with different sounds. The result sounds as if the noise (e.g. an organ - the instrument) was saying what they were saying. Manipulating your voice can be very entertaining and lead to some odd, cool, or funny audio files (think SnapChat filters making people sound like bees or talking after inhaling helium). Our platform aims to make it simple to mess around and fuse your voice with whatever sounds you like. We hope that people can get a good laugh or make some cool speeches to share with their friends through our app.
       </p>
-      <header>Results</header>
+			<br>
+      <h2>Results</h2>
       <p id="results">
         Evaluating FuseMe’s performance is not as simple as one might expect. A very good fusion might be a combination of weird, interesting, or funny, all of which can be very subjective qualities. We decided to define a good fusion as one that maximizes the quality of the sound effect while maintaining intelligibility of the speech. We created and sent out a survey to our friends to help us learn about how well FuseMe performs with certain types of sound effects. We found that for a very sustained and consistent sound, like a note held on a synth, the resulting fusion was the most intelligible. However, for inconsistent or sporadic sounds, the fusions were not very intelligible.
       </p>
+			<br>
       <a id="back" href="/">Back to FuseMe</a>
     </article>
     <footer><p>A project by Austin Chambers, Eric Hao, and Junhao Li</p></footer>
