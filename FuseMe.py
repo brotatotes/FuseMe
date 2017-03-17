@@ -24,14 +24,37 @@ def allowed_file(filename):
 @app.route("/", methods=['GET', 'POST'])
 def upload_file():
 	resp = make_response(render_template('home.html'))
-	if request.method == 'POST':
-		f = request.files['file']
-		f.filename = 'uploaded.mp3'
-		f.save(os.path.join('static/audio', secure_filename(f.filename)))
-		return '', 204
-	else:
-		resp.set_cookie('username', str(int(1000000000*random.random())))
-		return resp
+	username = request.cookies.get('username')
+	if username != None:
+		mfile = './static/audio/modulator_' + username + '.wav'
+		cfile = './static/audio/carrier_' + username + '.wav'
+		ffile = './static/audio/fusion_' + username + '.wav'
+		if os.path.exists(mfile):
+			os.remove(mfile)
+		if os.path.exists(cfile):
+			os.remove(cfile)
+		if os.path.exists(ffile):
+			os.remove(ffile)
+		# if request.method == 'POST':
+		# f = request.files['file']
+		# f.filename = 'uploaded.mp3'
+		# f.save(os.path.join('static/audio', secure_filename(f.filename)))
+			# pass
+	# else:
+	resp.set_cookie('username', str(int(1000000000*random.random())))
+	return resp
+
+# @app.after_request
+# def add_header(r):
+#     """
+#     Add headers to both force latest IE rendering engine or Chrome Frame,
+#     and also to cache the rendered page for 10 minutes.
+#     """
+#     r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+#     r.headers["Pragma"] = "no-cache"
+#     r.headers["Expires"] = "0"
+#     r.headers['Cache-Control'] = 'public, max-age=0'
+#     return r
 
 
 @app.route("/file/<id>", methods=["POST"])
@@ -62,20 +85,20 @@ def playback():
 	else:
 		return render_template('upload_error.html')
 
-@app.route("/reset", methods=['GET','POST'])
-def reset():
-	if request.method == "POST":
-		username = request.cookies.get('username')
-		mfile = './static/audio/modulator_' + username + '.wav'
-		cfile = './static/audio/carrier_' + username + '.wav'
-		ffile = './static/audio/fusion_' + username + '.wav'
-		if os.path.exists(mfile):
-			os.remove('./static/audio/modulator_' + username + '.wav')
-		if os.path.exists(cfile):
-			os.remove('./static/audio/carrier_' + username + '.wav')
-		if os.path.exists(ffile):
-			os.remove('./static/audio/fusion_' + username + '.wav')
-	return render_template('home.html')
+# @app.route("/reset", methods=['GET','POST'])
+# def reset():
+# 	if request.method == "POST":
+# 		username = request.cookies.get('username')
+# 		mfile = './static/audio/modulator_' + username + '.wav'
+# 		cfile = './static/audio/carrier_' + username + '.wav'
+# 		ffile = './static/audio/fusion_' + username + '.wav'
+# 		if os.path.exists(mfile):
+# 			os.remove(mfile)
+# 		if os.path.exists(cfile):
+# 			os.remove(cfile)
+# 		if os.path.exists(ffile):
+# 			os.remove(ffile)
+# 	return render_template('home.html')
 
 @app.route("/about", methods=['GET','POST'])
 def about():
