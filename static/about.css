@@ -17,7 +17,7 @@ h1, header {
 	font-family: 'Robot', sans-serif;
 }
 
-h2 {
+h2, h3 {
 	font-family: 'Robot', sans-serif;
 	padding: 0px;
 	margin: 0px;
@@ -111,6 +111,44 @@ article p {
 	background-color: rgba(61, 49, 91, 0.4);
 }
 
+.survey-container {
+	margin-top: 1rem;
+	width: 100%;
+	text-align: center;
+}
+
+.caption {
+	font-style: italic;
+	font-size: 0.8rem;
+}
+
+#pic-five {
+	width: 25rem;
+}
+
+#caption-five {
+	margin-bottom: 4rem;
+}
+
+h3 {
+	margin-top: 2rem;
+	margin-bottom: 1.5rem;
+	font-size: 1.2rem;
+}
+
+.two-col {
+	display: inline-block;
+	width: 40%;
+	text-align: center;
+}
+
+.word-pics {
+	width: 22rem;
+}
+
+.understandable-pics {
+	width: 22rem;
+}
 
 /* FOOTER */
 
