@@ -13,7 +13,7 @@ body {
 
 /* FONTS */
 
-h1, header {
+h1, header, table {
 	font-family: 'Robot', sans-serif;
 }
 
@@ -113,8 +113,14 @@ article p {
 
 .survey-container {
 	margin-top: 1rem;
+	margin-bottom: 4rem;
 	width: 100%;
 	text-align: center;
+}
+
+.survey-container a {
+	display: block;
+	margin-bottom: 1.5rem;
 }
 
 .caption {
@@ -132,7 +138,6 @@ article p {
 
 h3 {
 	margin-top: 2rem;
-	margin-bottom: 1.5rem;
 	font-size: 1.2rem;
 }
 
@@ -148,6 +153,21 @@ h3 {
 
 .understandable-pics {
 	width: 22rem;
+}
+
+#examples-container {
+	text-align: center;
+}
+
+table {
+	margin: 1rem auto;
+	border-collapse: collapse;
+}
+
+th, td {
+	height: 3rem;
+	width: 32%;
+	border: 0.1rem solid black;
 }
 
 /* FOOTER */
